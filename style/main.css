@@ -1,0 +1,52 @@
+.ticket {
+    border-width: 1px;
+    border-style: solid;
+    width: 200px;
+    height: 125px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    background-color: aliceblue;
+}
+
+.ticket::after {
+    content: '';
+    border-bottom: 20px solid #ffffff;
+    border-left: 20px solid #000000;
+    position: absolute;
+    left: 181px;
+    top: 106px;
+}
+
+.createButton {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 100px;
+    height: 100px;
+    text-align:center;
+    border-radius: 50%;
+    background-color: skyblue;
+}
+
+.createButton::after {
+    content: '';
+    border:5px solid #ffffff;
+    background-color: #ffffff;
+    width: 60px;
+    position: absolute;
+    left: 15px;
+    top: 45px;
+}
+
+.createButton::before {
+    content: '';
+    border:5px solid #ffffff;
+    background-color: #ffffff;
+    height: 60px;
+    position: absolute;
+    left: 45px;
+    top: 15px;
+}
