@@ -9,6 +9,59 @@
     background-color: aliceblue;
 }
 
+.ticket p {
+    width: 180px;
+    height: 85px;
+    position: absolute;
+    left: 10px;
+    top: -5px;
+    word-wrap: keep-all;
+}
+
+.ticket .linkButton {
+    border: 1px solid #ffffff;
+    font-size: 10px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    width: 30px;
+}
+
+.ticket .editView {
+    border: 2px solid #aaffaa;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    text-align: left;
+    background-color: #ffffff;
+    z-index: 9998;
+}
+
+.ticket .editView textarea {
+    font-size: 12px;
+}
+
+.ticket .editView input {
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.ticket .editView .deleteButton {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: #ff0000;
+    background-color: #000000;
+    font-size: 12px;
+    width: 30px;
+    text-align: center;
+}
+
 .ticket::after {
     content: '';
     border-bottom: 20px solid #ffffff;

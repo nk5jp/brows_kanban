@@ -1,6 +1,5 @@
 var connection;
 var loadingCompleted = false;
-var testRecord;
 
 var createConnection = function() {
     return new Promise(
@@ -27,12 +26,10 @@ var createConnection = function() {
     )
 }
 
-/** */
-var ticketRecordFactory = function(text, url, filePath, categoryId, left, top, zIndex) {
+var ticketRecordFactory = function(text, url, categoryId, left, top, zIndex) {
     return {
         text: text,
         url: url,
-        filePath: filePath,
         categoryId: categoryId,
         left: left,
         top: top,
@@ -41,7 +38,7 @@ var ticketRecordFactory = function(text, url, filePath, categoryId, left, top, z
 }
 
 var defaultTicket = function(left, top, zIndex) {
-    return ticketRecordFactory('Initial text.', '', '', 0, left, top, zIndex)
+    return ticketRecordFactory('Initial text.', '', 0, left, top, zIndex)
 }
 
 /**
@@ -93,14 +90,22 @@ var createNewTicket = function(left, top, zIndex) {
     )
 }
 
-var updateTicket = function(id, text, url, filePath, categoryId, left, top, zIndex) {
+var updateTicket = function(ticket) {
     return new Promise(
         function(resolve, reject) {
             if (!loadingCompleted) {
                 reject()
             } else {
                 var transaction = connection.transaction('tickets', 'readwrite')
-                var request = transaction.objectStore('tickets').put({id: id, text: text, url: url, filePath: filePath, categoryId: categoryId, left: left, top: top, zIndex: zIndex})
+                var request = transaction.objectStore('tickets').put({
+                    id: ticket.id,
+                    text: ticket.text,
+                    url: ticket.url,
+                    categoryId: ticket.categoryId,
+                    left: ticket.left,
+                    top: ticket.top,
+                    zIndex: ticket.zIndex
+                })
                 request.onsuccess = function () {
                     resolve(request.result)
                 }
@@ -129,9 +134,37 @@ var updateAllTickets = function(tickets) {
 
                 tickets.forEach(
                         function(ticket) {
-                            transaction.objectStore('tickets').put({id: ticket.id, text: ticket.text, url: ticket.url, filePath: ticket.filePath, categoryId: ticket.categoryId, left: ticket.left, top: ticket.top, zIndex: ticket.zIndex})
+                            if (!ticket.deleted)
+                                transaction.objectStore('tickets').put({
+                                    id: ticket.id,
+                                    text: ticket.text,
+                                    url: ticket.url,
+                                    categoryId: ticket.categoryId,
+                                    left: ticket.left,
+                                    top: ticket.top,
+                                    zIndex: ticket.zIndex
+                                })
                         }
                 )
+            }
+        }
+    )
+}
+
+var deleteTicket = function(id) {
+    return new Promise(
+        function(resolve, reject) {
+            if (!loadingCompleted) {
+                reject()
+            } else {
+                var transaction = connection.transaction('tickets', 'readwrite')
+                var request = transaction.objectStore('tickets').delete(id)
+                request.onsuccess = function () {
+                    resolve()
+                }
+                request.onerror = function() {
+                    reject('チケットを削除できませんでした．')
+                }
             }
         }
     )
