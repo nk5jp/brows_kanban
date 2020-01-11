@@ -8,9 +8,13 @@
     </head>
     <body>
         <div id="app">
-            <ticket></ticket>
+            <div div v-for="(ticket, index) in tickets" v-bind:key="ticket.id">
+                <ticket :ticket-id="ticket.id" :index="index"></ticket>
+            </div>
+            <add-ticket-button></add-ticket-button>
         </div>
     </body>
+    <script src="script/indexed.js"></script>
     <script src="script/main.js"></script>
 </html>
         

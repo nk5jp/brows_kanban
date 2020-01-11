@@ -4,9 +4,8 @@
     width: 200px;
     height: 125px;
     text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-    position: relative;
+    position: absolute;
+    -webkit-user-select: none;
     background-color: aliceblue;
 }
 
@@ -19,11 +18,12 @@
     top: 106px;
 }
 
-.createButton {
+.addTicketButton {
     display: inline-block;
     position: absolute;
     left: 10px;
     bottom: 10px;
+    z-index: 9999;
     width: 100px;
     height: 100px;
     text-align:center;
@@ -31,7 +31,7 @@
     background-color: skyblue;
 }
 
-.createButton::after {
+.addTicketButton::after {
     content: '';
     border:5px solid #ffffff;
     background-color: #ffffff;
@@ -39,9 +39,10 @@
     position: absolute;
     left: 15px;
     top: 45px;
+    z-index: 9999;
 }
 
-.createButton::before {
+.addTicketButton::before {
     content: '';
     border:5px solid #ffffff;
     background-color: #ffffff;
@@ -49,4 +50,5 @@
     position: absolute;
     left: 45px;
     top: 15px;
+    z-index: 9999;
 }
