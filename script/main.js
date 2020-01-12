@@ -2,12 +2,14 @@ var tickets = []
 
 var calculateZIndex = function(index) {
     let criteria = tickets[index].zIndex
+    let deletedCount = 0
     tickets.forEach(
         (ticket) => {
             if (ticket.zIndex > criteria) ticket.zIndex = ticket.zIndex - 1
+            if (ticket.deleted) deletedCount++
         }
     )
-    tickets[index].zIndex = tickets.length
+    tickets[index].zIndex = tickets.length - deletedCount
 }
 
 var saveAllTicket = function() {
